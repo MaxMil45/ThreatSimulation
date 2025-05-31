@@ -5,17 +5,32 @@
 
 class Target {
 public:
-    int id;
-    float x, y;        // Position
-    float vx, vy;      // Velocity
-    bool isHostile;
-    bool detected;
-    bool intercepted;
+    Target(int id, double x, double y, bool isHostile,
+           double radarSignature, double heatSignature, double noiseLevel);
 
-    Target(int id, float x, float y, float vx, float vy, bool isHostile);
+    // Position getters
+    double getX() const;
+    double getY() const;
 
-    void updatePosition(float dt);
+    // Signature getters
+    double getRadarSignature() const;
+    double getHeatSignature() const;
+    double getNoiseLevel() const;
+
+    // Optional: get hostility status
+    bool getIsHostile() const;
+
+    // Optional: status string for debugging/logging
     std::string getStatus() const;
+
+private:
+    int id;
+    double x, y;                     // Position
+    bool isHostile;
+
+    double radarSignature;           // e.g., 0.0 to 1.0 scale
+    double heatSignature;
+    double noiseLevel;
 };
 
 #endif // TARGET_H

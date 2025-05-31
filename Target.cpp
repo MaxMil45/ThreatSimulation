@@ -1,21 +1,25 @@
 #include "Target.h"
 #include <sstream>
 
-Target::Target(int id, float x, float y, float vx, float vy, bool isHostile)
-    : id(id), x(x), y(y), vx(vx), vy(vy),
-      isHostile(isHostile), detected(false), intercepted(false) {}
+Target::Target(int id, double x, double y, bool isHostile,
+               double radarSignature, double heatSignature, double noiseLevel)
+    : id(id), x(x), y(y), isHostile(isHostile),
+      radarSignature(radarSignature), heatSignature(heatSignature), noiseLevel(noiseLevel) {}
 
-void Target::updatePosition(float dt) {
-    x += vx * dt;
-    y += vy * dt;
-}
+double Target::getX() const { return x; }
+double Target::getY() const { return y; }
+double Target::getRadarSignature() const { return radarSignature; }
+double Target::getHeatSignature() const { return heatSignature; }
+double Target::getNoiseLevel() const { return noiseLevel; }
+bool Target::getIsHostile() const { return isHostile; }
 
 std::string Target::getStatus() const {
     std::ostringstream oss;
     oss << "ID: " << id
         << " | Pos(" << x << ", " << y << ")"
         << " | Hostile: " << (isHostile ? "Yes" : "No")
-        << " | Detected: " << (detected ? "Yes" : "No")
-        << " | Intercepted: " << (intercepted ? "Yes" : "No");
+        << " | RadarSig: " << radarSignature
+        << " | HeatSig: " << heatSignature
+        << " | NoiseLevel: " << noiseLevel;
     return oss.str();
 }

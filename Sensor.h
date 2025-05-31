@@ -4,14 +4,27 @@
 #include "Target.h"
 #include <vector>
 
+enum SensorType {
+    RADAR,
+    INFRARED,
+    ACOUSTIC
+};
+
+class Target;
+
 class Sensor {
 public:
+
+    Sensor(SensorType type, float x,  float y, float range);
+
+    bool detectTarget(const Target& target) const;
+
+    SensorType getType() const;
+
+private:
+    SensorType type;
     float x, y;
-    float detectionRadius;
-
-    Sensor(float x, float y, float radius);
-
-    void detect(std::vector<Target>& targets);
+    float range;
 };
 
 #endif // SENSOR_H
